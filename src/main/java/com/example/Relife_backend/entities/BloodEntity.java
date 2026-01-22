@@ -1,6 +1,9 @@
 package com.example.Relife_backend.entities;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -23,4 +26,7 @@ public class BloodEntity {
     private String contact;
 
     private String city;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 }

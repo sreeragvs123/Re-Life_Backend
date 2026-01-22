@@ -1,7 +1,7 @@
 package com.example.Relife_backend.controllers;
 
-import com.example.Relife_backend.dto.DonationDTO;
-import com.example.Relife_backend.services.DonationService;
+import com.example.Relife_backend.dto.ReportIssueDTO;
+import com.example.Relife_backend.services.ReportIssueService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -9,27 +9,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/donations")
+@RequestMapping("/api/report-issues")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
-public class DonationController {
+public class ReportIssueController {
 
-    private final DonationService service;
+    private final ReportIssueService service;
 
     @PostMapping("/post")
-    public DonationDTO create(@RequestBody @Valid DonationDTO donation) {
-        return service.create(donation);
+    public ReportIssueDTO create(@RequestBody @Valid ReportIssueDTO issue) {
+        return service.create(issue);
     }
 
     @DeleteMapping("/delete")
     public void delete(@RequestParam Long id) {
         service.delete(id);
-
     }
 
     @GetMapping
-    public List<DonationDTO> getAll() {
+    public List<ReportIssueDTO> getAll() {
         return service.getAll();
     }
-
 }

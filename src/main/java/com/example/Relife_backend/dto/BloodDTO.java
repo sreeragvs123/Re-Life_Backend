@@ -4,6 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -21,4 +24,6 @@ public class BloodDTO {
     private String contact;
 
     private String city;
+
+    private LocalDateTime createdAt;
 }
