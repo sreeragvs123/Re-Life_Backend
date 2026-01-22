@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BloodDTO {
+
+    private Long id;   // ✅ ADD THIS
+
     private String name;
 
     @NotBlank(message = "Blood group is required")
@@ -16,5 +19,6 @@ public class BloodDTO {
 
     @NotBlank(message = "Contact information is required")
     private String contact;
+
     private String city;
 }
