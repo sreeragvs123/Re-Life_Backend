@@ -1,8 +1,7 @@
 package com.example.Relife_backend.controllers;
 
-
-import com.example.Relife_backend.dto.MissingPersonDTO;
-import com.example.Relife_backend.services.MissingPersonService;
+import com.example.Relife_backend.dto.ProductRequestDTO;
+import com.example.Relife_backend.services.ProductRequestService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -10,18 +9,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/missing-persons")
+@RequestMapping("/api/product-requests")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
-public class MissingPersonController {
+public class ProductRequestController {
 
-    private final MissingPersonService service;
+    private final ProductRequestService service;
 
     @PostMapping("/post")
-    public MissingPersonDTO create(@RequestBody @Valid MissingPersonDTO person){
-        return service.create(person);
+    public ProductRequestDTO create(@RequestBody @Valid ProductRequestDTO request){
+        return service.create(request);
     }
-
 
     @DeleteMapping("/delete")
     public void delete(@RequestParam Long id){
@@ -29,7 +27,8 @@ public class MissingPersonController {
     }
 
     @GetMapping
-    public List<MissingPersonDTO> getAll() {
+    public List<ProductRequestDTO> getAll(){
         return service.getAll();
     }
+
 }

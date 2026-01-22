@@ -1,7 +1,5 @@
 package com.example.Relife_backend.configs;
 
-
-
 import java.util.Date;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

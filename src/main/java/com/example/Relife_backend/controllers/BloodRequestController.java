@@ -30,4 +30,5 @@ public class BloodRequestController {
     public void delete(@RequestParam Long id) {
         service.delete(id);
     }
+
 }
