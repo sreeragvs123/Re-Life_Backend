@@ -1,6 +1,7 @@
 package com.example.Relife_backend.entities;
 
-import com.example.Relife_backend.entities.enums.Role;
+
+import com.example.Relife_backend.entities.enums.IssueCategory;
 import com.example.Relife_backend.entities.enums.Urgency;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductRequestEntity {
+public class ReportIssueEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,11 +28,19 @@ public class ProductRequestEntity {
 
     private String name;
 
-    private Integer quantity;
+    private String email;
 
-    private Urgency urgency;
+    private String contactInfo;
 
-    private Role role;
+    private String Title;
+
+    private String Description;
+
+    private Urgency priority;
+
+    private IssueCategory issue;
+
+    private String location;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

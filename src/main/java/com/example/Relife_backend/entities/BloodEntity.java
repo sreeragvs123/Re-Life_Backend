@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -25,5 +27,6 @@ public class BloodEntity {
 
     private String city;
 
-    private CreationTimestamp createdAt;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 }

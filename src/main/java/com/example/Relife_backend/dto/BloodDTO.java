@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,5 +25,5 @@ public class BloodDTO {
 
     private String city;
 
-    private CreationTimestamp createdAt;
+    private LocalDateTime createdAt;
 }

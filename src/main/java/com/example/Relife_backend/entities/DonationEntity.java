@@ -1,7 +1,5 @@
 package com.example.Relife_backend.entities;
 
-import com.example.Relife_backend.entities.enums.Role;
-import com.example.Relife_backend.entities.enums.Urgency;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,23 +13,29 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductRequestEntity {
+public class DonationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String donorName;
+
+    private String contactInfo;
+
+    private String address;
+
+    private String item;
 
     private Integer quantity;
 
-    private Urgency urgency;
+    private Boolean approved = false;
 
-    private Role role;
+    private String status = "Pending";
 
     @CreationTimestamp
     private LocalDateTime createdAt;
