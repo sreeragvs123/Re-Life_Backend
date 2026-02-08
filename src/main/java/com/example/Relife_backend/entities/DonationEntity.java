@@ -1,42 +1,57 @@
 package com.example.Relife_backend.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Setter
-@Getter
-@AllArgsConstructor
+@Table(name = "donations")
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class DonationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String donorName;
 
-    private String contactInfo;
+    @Column(nullable = false)
+    private String contact;
 
+    @Column(nullable = false, length = 500)
     private String address;
 
+    @Column(nullable = false)
     private String item;
 
+    @Column(nullable = false)
     private Integer quantity;
 
-    private Boolean approved = false;
+    @Column(nullable = false)
+    private LocalDateTime date;
 
+    @Column(nullable = false)
+    private Boolean isApproved = false;
+
+    @Column(nullable = false)
     private String status = "Pending";
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+    @PrePersist
+    protected void onCreate() {
+        if (date == null) {
+            date = LocalDateTime.now();
+        }
+        if (isApproved == null) {
+            isApproved = false;
+        }
+        if (status == null) {
+            status = "Pending";
+        }
+    }
 }
