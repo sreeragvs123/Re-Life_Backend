@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  * TEST CONTROLLER - Use this to verify JSON serialization
- * Access: http://localhost:8080/api/test/json
+ * Access:
  *
  * DELETE THIS FILE after debugging!
  */
