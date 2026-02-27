@@ -1,20 +1,27 @@
 package com.example.Relife_backend.dto;
 
-
-import com.example.Relife_backend.entities.enums.Role;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class SignUpDTO {
 
-    //This will be the common signUp and the Volunteer DTO
-    private String email;
+    @NotBlank(message = "Name is required")
     private String name;
-    private String password;
-    private String place;
 
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
+    private String email;
+
+    @NotBlank(message = "Password is required")
+    private String password;
+
+    private String place;  // used for volunteer group assignment
+
+    // "USER" | "VOLUNTEER"
+    // ADMIN can never be self-registered — AuthService enforces this.
+    private String role;
 }

@@ -1,9 +1,8 @@
 package com.example.Relife_backend.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 
 @Data
 @AllArgsConstructor
@@ -12,6 +11,6 @@ public class LoginRequestDTO {
 
     private String email;
     private String password;
-    private String role;
-
+    // No role field — role comes from the DB after authentication.
+    // Accepting role from client is a security risk.
 }

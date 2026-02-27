@@ -1,6 +1,5 @@
 package com.example.Relife_backend.services;
 
-
 import com.example.Relife_backend.entities.UserEntity;
 import com.example.Relife_backend.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,17 +13,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
-    private final UserRepository  userRepository;
+    private final UserRepository userRepository;
 
+    // Called by Spring Security during authentication — loads user by email
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByEmail(username).orElseThrow(() -> new BadCredentialsException("User not found with email: " + username));
-        return (UserDetails) userEntity;
+        return userRepository.findByEmail(username)
+                .orElseThrow(() -> new BadCredentialsException(
+                        "User not found with email: " + username));
     }
 
     public UserEntity getUserById(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new BadCredentialsException("User not found with id: " + userId));
+                .orElseThrow(() -> new BadCredentialsException(
+                        "User not found with id: " + userId));
     }
-
 }
