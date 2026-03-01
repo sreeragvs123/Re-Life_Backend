@@ -2,16 +2,13 @@ package com.example.Relife_backend.controllers;
 
 import com.example.Relife_backend.dto.*;
 import com.example.Relife_backend.services.AuthService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -28,37 +25,28 @@ public class AuthController {
     }
 
     // ── POST /api/auth/login ───────────────────────────────────────────────────
+    // FIX: Removed HttpOnly cookie — cookies don't work in Flutter mobile apps.
+    // refreshToken is already in the response body (LoginResponseDTO.refreshToken)
+    // so Flutter Dio can read it directly from JSON. No cookie needed.
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(
-            @RequestBody LoginRequestDTO request,
-            HttpServletResponse response) {
-
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO request) {
         LoginResponseDTO login = authService.login(request);
-
-        // Store refreshToken in HttpOnly cookie (more secure than body)
-        Cookie cookie = new Cookie("refreshToken", login.getRefreshToken());
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-
         return ResponseEntity.ok(login);
     }
 
     // ── POST /api/auth/refresh ─────────────────────────────────────────────────
+    // FIX: Read refreshToken from JSON body instead of HttpOnly cookie.
+    // Cookies are a browser mechanism — Flutter sends JSON, not cookies.
+    //
+    // Request body: { "refreshToken": "<token>" }
     @PostMapping("/refresh")
-    public ResponseEntity<LoginResponseDTO> refresh(HttpServletRequest request) {
+    public ResponseEntity<LoginResponseDTO> refresh(
+            @RequestBody Map<String, String> body) {
 
-        Cookie[] cookies = request.getCookies();
-        if (cookies == null) {
-            throw new AuthenticationServiceException("No cookies found");
+        String refreshToken = body.get("refreshToken");
+        if (refreshToken == null || refreshToken.isBlank()) {
+            throw new AuthenticationServiceException("refreshToken is required in request body");
         }
-
-        String refreshToken = Arrays.stream(cookies)
-                .filter(c -> "refreshToken".equals(c.getName()))
-                .findFirst()
-                .map(Cookie::getValue)
-                .orElseThrow(() -> new AuthenticationServiceException(
-                        "Refresh token not found in cookie"));
 
         return ResponseEntity.ok(authService.refreshToken(refreshToken));
     }
