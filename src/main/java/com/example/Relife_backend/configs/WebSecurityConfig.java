@@ -29,7 +29,7 @@ public class WebSecurityConfig {
                                 "/api/auth/login",
                                 "/api/auth/signUp",
                                 "/api/auth/refresh",
-                                "/api/missing-persons/**"   // keep existing public route
+                                "/api/missing-persons/**"// keep existing public route
                         ).permitAll()
 
                         // ── Volunteer + Admin only ─────────────────────────────────
